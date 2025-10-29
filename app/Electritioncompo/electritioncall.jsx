@@ -33,11 +33,11 @@ const Electritioncall = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[#8ea3c6]">
-      <StatusBar barStyle="light-content" backgroundColor="#365486" />
+    <SafeAreaView className="flex-1 bg-gray-50">
+      <StatusBar barStyle="light-content" backgroundColor="#6366F1" />
 
       {/* Header */}
-      <View className="flex-row items-center justify-between bg-[#365486] px-4 py-4 shadow-lg rounded-b-3xl">
+      <View className="flex-row items-center justify-between bg-[#6366F1] px-4 py-4 shadow-lg rounded-b-3xl">
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           className="p-2 rounded-full bg-white/20"
@@ -66,7 +66,7 @@ const Electritioncall = () => {
 
             <TouchableOpacity
               onPress={() => handleCallPress(person)}
-              className="bg-[#365486] px-5 py-2 rounded-full"
+              className="bg-[#6366F1] px-5 py-2 rounded-full"
             >
               <Text className="text-white font-medium">Call</Text>
             </TouchableOpacity>
