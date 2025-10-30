@@ -3,9 +3,11 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native"; // ✅ added
 
 const Healthcare = () => {
   const router = useRouter();
+  const navigation = useNavigation(); // ✅ added
 
   const healthcareServices = [
     {
@@ -33,13 +35,13 @@ const Healthcare = () => {
     >
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center flex-1">
-          <View 
+          <View
             className="w-16 h-16 rounded-full items-center justify-center mr-4"
             style={{ backgroundColor: service.bgColor }}
           >
-            <View 
+            <View
               className="w-12 h-12 rounded-full items-center justify-center"
-              style={{ backgroundColor: service.color + '20' }}
+              style={{ backgroundColor: service.color + "20" }}
             >
               <Image
                 source={service.icon}
@@ -67,11 +69,11 @@ const Healthcare = () => {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <StatusBar barStyle="light-content" backgroundColor="#6366F1" />
-      
-      {/* Header - Matching Home Screen Style */}
-     <View className="flex-row items-center justify-between bg-[#6366F1] px-4 py-4 shadow-lg rounded-b-3xl">
+
+      {/* Header */}
+      <View className="flex-row items-center justify-between bg-[#6366F1] px-4 py-4 shadow-lg rounded-b-3xl">
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.goBack()} // ✅ now works
           className="p-2 rounded-full bg-white/20"
         >
           <Ionicons name="arrow-back" size={24} color="#fff" />
@@ -81,23 +83,17 @@ const Healthcare = () => {
           Healthcare Services
         </Text>
 
-        {/* Spacer to balance layout */}
         <View className="w-8" />
       </View>
 
       {/* Main Content */}
       <View className="flex-1 bg-gray-50">
-        
-        
-
-        {/* Services List */}
         <View className="px-6 pt-6 flex-1">
           {healthcareServices.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </View>
 
-        {/* Additional Info */}
         <View className="px-6 pb-8">
           <View className="bg-white rounded-2xl p-4 shadow-sm">
             <Text className="text-gray-600 text-center text-sm">

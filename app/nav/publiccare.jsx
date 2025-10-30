@@ -1,179 +1,154 @@
 import { View, Text, TouchableOpacity, Image, StatusBar } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
-import { useNavigation } from "@react-navigation/native";
 import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
-const Publiccare = () => {
-  const navigation = useNavigation();
+const PublicCare = () => {
   const router = useRouter();
 
+
+
+  // const publicServices = [
+  //   {
+  //     id: 1,
+  //     name: "Postal Service",
+  //     icon: "create-outline",
+  //     route: "/Postcompo/postcall",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Water Suppliers",
+  //     icon: "water",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Daily Uses",
+  //     icon: "newspaper-outline",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Grocery",
+  //     icon: "pricetag-outline",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Service Apartment VNB",
+  //     icon: "business-outline",
+  //     route: "/Serviceapartments/apartmentscall",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "BC Services",
+  //     icon: "settings-outline",
+  //   },
+  // ];
+
+
+
+  const publicCareServices = [
+    {
+      id: 1,
+      name: "Fire Safety",
+      // icon: require("../../assets/images/"),
+      route: "/nav/fireSafety",
+      color: "#F97316",
+      bgColor: "#FFF7ED"
+    },
+    {
+      id: 2,
+      name: "Police Station",
+      // icon: require("../../assets/images/police.png"),
+      route: "/nav/police",
+      color: "#3B82F6",
+      bgColor: "#EFF6FF"
+    },
+    {
+      id: 3,
+      name: "Ambulance",
+      icon: require("../../assets/images/ambulance.png"),
+      route: "/nav/ambulance",
+      color: "#10B981",
+      bgColor: "#ECFDF5"
+    }
+  ];
+
+  const ServiceCard = ({ service }) => (
+    <TouchableOpacity
+      onPress={() => service.route && router.push(service.route)}
+      className="w-full bg-white rounded-2xl p-6 shadow-lg mb-6 border border-gray-100 active:scale-95"
+    >
+      <View className="flex-row items-center justify-between">
+        <View className="flex-row items-center flex-1">
+          <View 
+            className="w-16 h-16 rounded-full items-center justify-center mr-4"
+            style={{ backgroundColor: service.bgColor }}
+          >
+            <View 
+              className="w-12 h-12 rounded-full items-center justify-center"
+              style={{ backgroundColor: service.color + '20' }}
+            >
+              <Image
+                source={service.icon}
+                className="w-6 h-6"
+                resizeMode="contain"
+              />
+            </View>
+          </View>
+          <View className="flex-1">
+            <Text className="text-gray-800 text-xl font-bold">
+              {service.name}
+            </Text>
+            <Text className="text-gray-500 text-base mt-1">
+              Tap to view details
+            </Text>
+          </View>
+        </View>
+        <View className="w-8 h-8 bg-gray-100 rounded-full items-center justify-center">
+          <Text className="text-gray-400 text-lg">→</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+
   return (
-    <SafeAreaView className="flex-1 bg-[#8ea3c6]">
-      <StatusBar barStyle="light-content" backgroundColor="#365486" />
+    <SafeAreaView className="flex-1 bg-white">
+      <StatusBar barStyle="light-content" backgroundColor="#3B82F6" />
+
       {/* Header */}
-      <View className="flex-row items-center justify-between bg-[#365486] px-4 py-4 shadow-lg rounded-b-3xl">
+      <View className="flex-row items-center justify-between bg-[#3B82F6] px-4 py-4 shadow-lg rounded-b-3xl">
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => router.back()}
           className="p-2 rounded-full bg-white/20"
         >
           <Ionicons name="arrow-back" size={24} color="#fff" />
         </TouchableOpacity>
 
-        <Text className="text-white text-xl font-bold">Services</Text>
+        <Text className="text-white text-xl font-bold">
+          Public Care Services
+        </Text>
 
-        {/* Spacer to balance layout */}
         <View className="w-8" />
       </View>
 
-      {/* Content Section */}
-      <View className="flex-1 gap-2 items-center justify-start mt-4 space-y-12 px-2 ">
-        {/* Pharmacy Button */}
-        <TouchableOpacity
-        onPress={() => router.push("/Postcompo/postcall")}
-          activeOpacity={0.7}
-          className="w-full h-20 rounded-3xl overflow-hidden shadow-2xl border-2 border-white"
-        >
-          <LinearGradient
-            colors={["#4A6FA5", "#365486", "#fff"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            className="flex-row items-center justify-between h-full px-6"
-          >
-            <View className="flex-row items-center space-x-4">
-              <View className="bg-white/20 p-3 mr-2 rounded-2xl">
-                <Ionicons name="create-outline" size={20} color="#000" />
-              </View>
-              <View>
-                <Text className="text-white text-xl font-bold">
-                  Postal Service
-                </Text>
-              </View>
-            </View>
-          </LinearGradient>
-        </TouchableOpacity>
+      {/* Content */}
+      <View className="flex-1 bg-gray-50">
+        <View className="px-6 pt-6 flex-1">
+          {publicCareServices.map((service) => (
+            <ServiceCard key={service.id} service={service} />
+          ))}
+        </View>
 
-        {/* Hospital Button */}
-        <TouchableOpacity
-          activeOpacity={0.7}
-          className="w-full h-20 rounded-3xl overflow-hidden shadow-2xl border-2 border-white"
-        >
-          <LinearGradient
-            colors={["#4A6FA5", "#365486", "#fff"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            className="flex-row items-center justify-between h-full px-6"
-          >
-            <View className="flex-row items-center space-x-4">
-              <View className="bg-white/20 p-3 mr-2 rounded-2xl">
-                <Ionicons name="water" size={20} color="#000" />
-              </View>
-              <View>
-                <Text className="text-white text-xl font-bold">
-                  Water Suppliers
-                </Text>
-              </View>
-            </View>
-          </LinearGradient>
-        </TouchableOpacity>
-
-        {/* Daily Uses Button */}
-        <TouchableOpacity
-          activeOpacity={0.7}
-          className="w-full h-20 rounded-3xl overflow-hidden shadow-2xl border-2 border-white"
-        >
-          <LinearGradient
-            colors={["#4A6FA5", "#365486", "#fff"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            className="flex-row items-center justify-between h-full px-6"
-          >
-            <View className="flex-row items-center space-x-4">
-              <View className="bg-white/20 p-3 mr-2 rounded-2xl">
-                <Ionicons name="newspaper-outline" size={20} color="#000" />
-              </View>
-              <View>
-                <Text className="text-white text-xl font-bold">Daily Uses</Text>
-              </View>
-            </View>
-          </LinearGradient>
-        </TouchableOpacity>
-
-        {/* Grocery Button */}
-        <TouchableOpacity
-          activeOpacity={0.7}
-          className="w-full h-20 rounded-3xl overflow-hidden shadow-2xl border-2 border-white"
-        >
-          <LinearGradient
-            colors={["#4A6FA5", "#365486", "#fff"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            className="flex-row items-center justify-between h-full px-6"
-          >
-            <View className="flex-row items-center space-x-4">
-              <View className="bg-white/20 p-3 mr-2 rounded-2xl">
-                <Ionicons name="pricetag-outline" size={20} color="#000" />
-              </View>
-              <View>
-                <Text className="text-white text-xl font-bold">Grocery</Text>
-              </View>
-            </View>
-          </LinearGradient>
-        </TouchableOpacity>
-
-        {/* Service Apartment VNB */}
-        <TouchableOpacity
-           onPress={() => router.push("/Serviceapartments/apartmentscall")}
-          activeOpacity={0.7}
-          className="w-full h-20 rounded-3xl overflow-hidden shadow-2xl border-2 border-white"
-        >
-          <LinearGradient
-            colors={["#4A6FA5", "#365486", "#fff"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            className="flex-row items-center justify-between h-full px-6"
-          >
-            <View className="flex-row items-center space-x-4">
-              <View className="bg-white/20 p-3 mr-2 rounded-2xl">
-                <Ionicons name="business-outline" size={20} color="#000" />
-              </View>
-              <View>
-                <Text className="text-white text-xl font-bold">
-                  Service Apartment VNB
-                </Text>
-              </View>
-            </View>
-          </LinearGradient>
-        </TouchableOpacity>
-
-        {/* BC Services */}
-        <TouchableOpacity
-          activeOpacity={0.7}
-          className="w-full h-20 rounded-3xl overflow-hidden shadow-2xl border-2 border-white"
-        >
-          <LinearGradient
-            colors={["#4A6FA5", "#365486", "#fff"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            className="flex-row items-center justify-between h-full px-6"
-          >
-            <View className="flex-row items-center space-x-4">
-              <View className="bg-white/20 p-3 mr-2 rounded-2xl">
-                <Ionicons name="settings-outline" size={20} color="#000" />
-              </View>
-              <View>
-                <Text className="text-white text-xl font-bold">
-                  BC Services
-                </Text>
-              </View>
-            </View>
-          </LinearGradient>
-        </TouchableOpacity>
+        <View className="px-6 pb-8">
+          <View className="bg-white rounded-2xl p-4 shadow-sm">
+            <Text className="text-gray-600 text-center text-sm">
+              🚨 Emergency helplines available 24/7
+            </Text>
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
 };
 
-export default Publiccare;
+export default PublicCare;
